@@ -1,0 +1,257 @@
+#: include StyleGeral.kv
+
+ScreenManager:
+    Main:
+        name: 'principal'
+        
+    Cadastro:
+        name: 'cadastro'
+        
+    Pesquisar:
+        name: 'pesquisa'
+
+        
+<Main>:
+    canvas:
+        Color:
+            rgba: .6, .6, .6, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 5
+        padding: 10
+        
+        Image:
+            source: 'Logo.png'
+            
+
+        Button:
+            text: "Incluir"
+            size_hint: 0.4, 0.2
+            background_normal: ""
+            background_color: 0, 0, 0.5, 1
+            pos_hint: {"center_x": 0.5}
+            on_release:
+                app.root.current = "cadastro"
+                app.root.transition.direction = 'right'
+
+        Button:
+            text: "Pesquisar"
+            size_hint: 0.4, 0.2
+            background_normal: ""
+            background_color: 0, 0, 0.5, 1
+            pos_hint: {"center_x": 0.5}
+            on_release:
+                app.root.current = "pesquisa"
+                app.root.transition.direction = 'left'
+
+        Button:
+            text: "Fechar"
+            size_hint: 0.4, 0.2
+            background_normal: ""
+            background_color: 0, 0.5, 0, 1
+            pos_hint: {"center_x": 0.5}
+            on_release: app.stop()
+
+<Cadastro>:
+    canvas:
+        Color:
+            rgba: 75/255, 219/255, 219/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 30
+
+        Label:
+            text: "Inclusão De Dados"
+            size_hint: 1, 0.3
+            font_size: 50
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 25
+            
+            Label:
+                text: "Nome:"
+                size_hint: .15, None
+                size: 0, 40
+                color: 0,0,.5,1
+
+            TextInput:
+                id: input_name
+                multiline: False
+                size_hint: 1, None
+                size: 0, 40
+                font_size: 23
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: .5, .35
+            pos_hint: {"center_x": .5}
+        
+            ToggleButton:
+                id: tgb_M
+                text: "Masculino"
+                group: 'sexo'
+                state: 'down'
+
+            ToggleButton:
+                id: tgb_F
+                text: "Feminino"
+                group: 'sexo'
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 25
+            
+            Label:
+                text: "Idade:"
+                size_hint: .15, None
+                size: 0, 40
+                color: 0,0,.5,1
+
+            TextInput:
+                id: input_age
+                multiline: False
+                size_hint: 1, None
+                size: 0, 40
+                font_size: 23
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 25
+
+            Button:
+                text: "ADICIONAR"
+                size_hint: 1, 0.8
+                background_color: 0, .5, 0, 1
+                on_press: root.click()
+            
+            Button:
+                text: "VOLTAR"
+                size_hint: 1, 0.8
+                background_color: 0, 0, .5, 1
+                on_release:
+                    app.root.current = "principal"
+                    app.root.transition.direction = 'left'
+
+<Pesquisar>:
+    canvas:
+        Color:
+            rgba: 75/255, 219/255, 219/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 25
+
+        Label:
+            text: "Pesquisa De Dados"
+            size_hint: 1, 0.3
+            font_size: 50
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 0.9, 0.2
+            pos_hint: {"center_x": .5}
+            
+            ToggleButton:
+                id: tgb_pesquisa_M
+                text: "Masculino"
+                group: "genero"
+                state: 'down'
+                
+            ToggleButton:
+                id: tgb_pesquisa_F
+                text: "Feminino"
+                group: "genero"
+                
+            ToggleButton:
+                text: "Qualquer"
+                group: "genero"
+
+        Label:
+            text: "IDADE"
+            color: 0,0,.5,1
+            size_hint: 1, None
+            size: 0, 1
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 0.9, 0.4
+            pos_hint: {"center_x": .5}
+            spacing: 10
+                    
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
+                size_hint: 1, .15
+
+                Label:
+                    text: "MIN:"
+                    size_hint: .15, None
+                    size: 0, 40
+                    color: 0,0,.5,1
+                    font_size: 25
+                TextInput:
+                    id: input_min_age
+                    multiline: False
+                    size_hint: 0.8, None
+                    size: 0, 40
+                    font_size: 23
+
+                Label:
+                    text: "MAX:"
+                    size_hint: .15, None
+                    size: 0, 40
+                    color: 0,0,.5,1
+                    font_size: 25
+                TextInput:
+                    id: input_max_age
+                    multiline: False
+                    size_hint: 0.8, None
+                    size: 0, 40
+                    font_size: 23
+
+            Button:
+                text: "PESQUISAR"
+                background_color: 0, .5, 0, 1
+                size_hint: .35, 0.2
+                pos_hint: {"center_x": .5}
+                font_size: 20
+                on_press: root.click()
+
+        ScrollView:
+            id: mostrar_lista
+            pos_hint: {"center_x": .5}
+                
+
+        Button:
+            text: "Início"
+            on_release:
+                app.root.current = "principal"
+                app.root.transition.direction = 'right'
+
+            size_hint: 0.15, 0.15
+            font_size: 20
+            
+            
+                
+
+        
+
+
+            
+            
+
+    
+            
+    
